@@ -5,11 +5,16 @@ type Prefecture = {
   prefName: string
 }
 
+type APIResponse = {
+  message: string
+  result: Prefecture[]
+}
+
 export default async function handler(
   _: VercelRequest,
   response: VercelResponse,
 ) {
-  const result = await fetchResasAPI<Prefecture[]>('/api/v1/prefectures')
+  const result = await fetchResasAPI<APIResponse>('/api/v1/prefectures')
 
   return response.status(200).json(result)
 }
