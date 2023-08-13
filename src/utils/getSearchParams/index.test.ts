@@ -1,8 +1,8 @@
-import { getSerachParam } from '.'
+import { getSearchParams } from '.'
 
-describe('useSearchParams', () => {
+describe('getSearchParams', () => {
   test('デフォルトで空になる', () => {
-    const result = getSerachParam('param')
+    const result = getSearchParams('param')
 
     expect(result).toEqual([])
   })
@@ -15,7 +15,7 @@ describe('useSearchParams', () => {
       },
     })
 
-    const result = getSerachParam('param')
+    const result = getSearchParams('param')
     expect(result).toEqual(['1'])
   })
 
@@ -27,7 +27,7 @@ describe('useSearchParams', () => {
       },
     })
 
-    const result = getSerachParam('param')
+    const result = getSearchParams('param')
     expect(result).toEqual(['1', '2', '3'])
   })
 })

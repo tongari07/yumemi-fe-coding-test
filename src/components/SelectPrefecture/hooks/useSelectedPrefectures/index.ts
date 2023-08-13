@@ -3,14 +3,14 @@ import {
   setPrefecturesContext,
 } from 'providers/PrefecturesProvider'
 import React from 'react'
-import { getSerachParam } from 'utils/getSearchParam'
+import { getSearchParams } from 'utils/getSearchParams'
 
 export const useSelectedPrefectures = () => {
   const { selectedPrefectures } = React.useContext(prefecturesContext)
   const setSelectedPrefectures = React.useContext(setPrefecturesContext)
 
   React.useEffect(() => {
-    const searchParams = getSerachParam('prefCode')
+    const searchParams = getSearchParams('prefCode')
     const newSelectedPrefectures = searchParams.map((param) => Number(param))
     setSelectedPrefectures(new Set(newSelectedPrefectures))
   }, [setSelectedPrefectures])
