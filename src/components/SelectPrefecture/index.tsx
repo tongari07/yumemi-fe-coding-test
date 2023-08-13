@@ -1,27 +1,17 @@
-import { useId } from 'react'
+import React, { useId } from 'react'
 import { useSelectedPrefectures } from './hooks/useSelectedPrefectures'
-import { useFetch } from 'lib/useFetch'
-import { Prefecture } from 'types'
+
+import { prefecturesContext } from 'providers/PrefecturesProvider'
 
 export const SelectPrefecture = () => {
-  const { data, error, isLoading } = useFetch<Prefecture[]>(
-    '/api/getPrefectures',
-  )
-  const { selectedPrefectures, handleCheckPrefecture } =
-    useSelectedPrefectures()
+  const { prefectures, selectedPrefectures } =
+    React.useContext(prefecturesContext)
+  const { handleCheckPrefecture } = useSelectedPrefectures()
   const id = useId()
-
-  if (isLoading) {
-    return <p>Now Loading...</p>
-  }
-
-  if (error) {
-    return <p>Error</p>
-  }
 
   return (
     <fieldset id={id} className="flex flex-row flex-wrap gap-4">
-      {data?.map((prefecture) => (
+      {prefectures.map((prefecture) => (
         <label className="flex flex-row gap-2" key={prefecture.prefCode}>
           <input
             type="checkbox"
