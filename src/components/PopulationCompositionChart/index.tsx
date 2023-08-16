@@ -19,7 +19,7 @@ export const PopulationCompositionChart = ({
   datas = [],
 }: PopulationCompositionChartProps) => {
   if (datas.length === 0) {
-    return <span className="ml-8">都道府県を選択してください。</span>
+    return <span>都道府県を選択してください。</span>
   }
 
   return (
