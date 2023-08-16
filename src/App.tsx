@@ -21,7 +21,7 @@ function App() {
       <header className="grid place-content-center">
         <h1 className="text-6xl font-bold">Population trends by prefecture</h1>
       </header>
-      <main className="gap-81 flex min-h-screen flex-col items-center p-24">
+      <main className="flex min-h-screen flex-col items-center gap-8 p-24">
         <section>
           <SelectPrefecture
             prefectures={prefectures}
