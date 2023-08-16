@@ -2,14 +2,16 @@ import React from 'react'
 import { Prefecture } from 'types'
 import { getSearchParams } from 'utils/getSearchParams'
 
-export const useSelectedPrefectures = () => {
+export const useSelectedPrefectures = (
+  selectedPrefectureCallback: (prefCode: string, isChecked: boolean) => void,
+) => {
   const [selectedPrefectures, setSelectedPrefectures] = React.useState<
     Set<Prefecture['prefCode']>
   >(new Set())
 
   React.useEffect(() => {
     const searchParams = getSearchParams('prefCode')
-    const newSelectedPrefectures = searchParams.map((param) => Number(param))
+    const newSelectedPrefectures = searchParams
     setSelectedPrefectures(new Set(newSelectedPrefectures))
   }, [])
 
@@ -17,12 +19,13 @@ export const useSelectedPrefectures = () => {
     (newCheckedPrefCode: string, isChecked: boolean) => {
       const newSelectedPrefectures = new Set(selectedPrefectures)
       if (isChecked) {
-        newSelectedPrefectures.add(Number(newCheckedPrefCode))
+        newSelectedPrefectures.add(newCheckedPrefCode)
       } else {
-        newSelectedPrefectures.delete(Number(newCheckedPrefCode))
+        newSelectedPrefectures.delete(newCheckedPrefCode)
       }
 
       setSelectedPrefectures(newSelectedPrefectures)
+      selectedPrefectureCallback(newCheckedPrefCode, isChecked)
 
       const url = new URL(window.location.href)
       url.searchParams.delete('prefCode')
@@ -31,7 +34,7 @@ export const useSelectedPrefectures = () => {
       })
       window.history.replaceState({}, '', url.toString())
     },
-    [selectedPrefectures],
+    [selectedPrefectureCallback, selectedPrefectures],
   )
 
   return { selectedPrefectures, handleCheckPrefecture }

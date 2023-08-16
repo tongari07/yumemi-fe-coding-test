@@ -5,18 +5,29 @@ type Prefecture = {
   prefName: string
 }
 
-type APIResponse = {
+type RESASAPIResponse = {
   message: string
   result: Prefecture[]
 }
+
+type APIResponse = {
+  prefCode: string
+  prefName: string
+}[]
 
 export default async function handler(
   _: VercelRequest,
   response: VercelResponse,
 ) {
-  const result = await fetchResasAPI<APIResponse>('/api/v1/prefectures')
+  const result = await fetchResasAPI<RESASAPIResponse>('/api/v1/prefectures')
 
-  return response.status(200).json(result)
+  const apiResponse: APIResponse = result.result.map((prefecture) => ({
+    prefCode: String(prefecture.prefCode),
+    prefName: prefecture.prefName,
+  }))
+
+  response.setHeader('Cache-Control', 's-maxage=86400')
+  return response.status(200).json(apiResponse)
 }
 
 // utils/_fetchResasAPI.tsに共通関数として切り出したいが、vercel devで動かないので一旦ここに記述
