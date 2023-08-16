@@ -23,7 +23,7 @@ describe('SelectPrefecture', () => {
     render(<App />)
 
     await waitFor(() => {
-      const linkElement = screen.getByText('都道府県別の人口構成')
+      const linkElement = screen.getByText('都道府県別 総人口推移グラフ')
       expect(linkElement).toBeInTheDocument()
     })
   })
