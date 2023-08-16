@@ -2,7 +2,11 @@
 export default {
   content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        fluid: 'repeat(auto-fit, minmax(100px, 1fr))',
+      },
+    },
   },
   plugins: [],
 }

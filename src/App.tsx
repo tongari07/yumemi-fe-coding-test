@@ -25,7 +25,7 @@ function App() {
         <h1 className="text-2xl font-bold md:text-4xl">都道府県別の人口構成</h1>
       </header>
       <main className="flex min-h-screen flex-col items-center gap-8 px-4 pt-8 md:items-start md:p-24">
-        <section className="flex flex-col items-center gap-2 md:items-start">
+        <section className="flex w-full flex-col items-center gap-2 md:items-start">
           <h2 className="w-fit rounded-sm border border-gray-200 px-2 text-xl md:text-2xl">
             都道府県
           </h2>
