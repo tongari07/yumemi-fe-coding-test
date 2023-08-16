@@ -22,7 +22,9 @@ function App() {
   return (
     <>
       <header className="grid place-content-center">
-        <h1 className="text-2xl font-bold md:text-4xl">都道府県別の人口構成</h1>
+        <h1 className="text-2xl font-bold md:text-4xl">
+          都道府県別 総人口推移グラフ
+        </h1>
       </header>
       <main className="flex min-h-screen flex-col items-center gap-8 px-4 pt-8 md:items-start md:p-24">
         <section className="flex w-full flex-col items-center gap-2 md:items-start">
