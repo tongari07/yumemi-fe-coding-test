@@ -1,13 +1,8 @@
 import { SelectPrefecture } from 'components/SelectPrefecture'
-import { useFetch } from 'lib/useFetch'
-import { Prefecture } from 'types'
+import { usePrefectures } from 'hooks/usePrefectures'
 
 function App() {
-  const {
-    data: prefectures,
-    error,
-    isLoading,
-  } = useFetch<Prefecture[]>('/api/getPrefectures')
+  const { prefectures, error, isLoading } = usePrefectures()
 
   if (isLoading || !prefectures) {
     return <div>Now Loading...</div>
