@@ -23,19 +23,17 @@ describe('useSelectedPrefectures', () => {
       mockGetSearchParam()
       const { result } = renderHook(() => useSelectedPrefectures())
 
-      expect(result.current.selectedPrefectures).toEqual(new Set([1, 2]))
+      expect(result.current.selectedPrefectures).toEqual(new Set(['1', '2']))
       vi.mock
     })
   })
 
   describe('handleChange', () => {
     const assert = (
-      actualSelectedPrefectures: Set<number>,
+      actualSelectedPrefectures: Set<string>,
       expectedValues: string[],
     ) => {
-      const expectedNumberSet = new Set(
-        expectedValues.map((value) => Number(value)),
-      )
+      const expectedNumberSet = new Set(expectedValues)
       const expectedSearchParam = expectedValues.reduce((acc, value) => {
         return acc === '' ? `?prefCode=${value}` : `${acc}&prefCode=${value}`
       }, '')
@@ -64,7 +62,7 @@ describe('useSelectedPrefectures', () => {
       mockGetSearchParam()
       const { result } = renderHook(() => useSelectedPrefectures())
 
-      expect(result.current.selectedPrefectures).toEqual(new Set([1, 2]))
+      expect(result.current.selectedPrefectures).toEqual(new Set(['1', '2']))
       expect(window.location.search).toBe('?prefCode=1&prefCode=2')
 
       act(() => {

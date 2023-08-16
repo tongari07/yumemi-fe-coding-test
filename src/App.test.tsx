@@ -6,7 +6,7 @@ import { mockPrefectures } from 'tests/mocks'
 
 setupMockServer(
   rest.get('http://localhost:3000/api/getPrefectures', (_, res, ctx) =>
-    res(ctx.status(200), ctx.json({ result: mockPrefectures })),
+    res(ctx.status(200), ctx.json(mockPrefectures)),
   ),
 )
 

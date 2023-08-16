@@ -9,7 +9,7 @@ export const useSelectedPrefectures = () => {
 
   React.useEffect(() => {
     const searchParams = getSearchParams('prefCode')
-    const newSelectedPrefectures = searchParams.map((param) => Number(param))
+    const newSelectedPrefectures = searchParams
     setSelectedPrefectures(new Set(newSelectedPrefectures))
   }, [])
 
@@ -17,9 +17,9 @@ export const useSelectedPrefectures = () => {
     (newCheckedPrefCode: string, isChecked: boolean) => {
       const newSelectedPrefectures = new Set(selectedPrefectures)
       if (isChecked) {
-        newSelectedPrefectures.add(Number(newCheckedPrefCode))
+        newSelectedPrefectures.add(newCheckedPrefCode)
       } else {
-        newSelectedPrefectures.delete(Number(newCheckedPrefCode))
+        newSelectedPrefectures.delete(newCheckedPrefCode)
       }
 
       setSelectedPrefectures(newSelectedPrefectures)

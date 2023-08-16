@@ -3,10 +3,27 @@ import { VercelRequest, VercelResponse } from '@vercel/node'
 type PopulationComposition = {
   boundaryYear: number
   data: {
+    label: string
+    data: {
+      year: number
+      value: number
+      rate?: number
+    }[]
+  }[]
+}
+
+type RESASAPIResponse = {
+  message: string
+  result: PopulationComposition
+}
+
+type APIResponse = {
+  prefCode: string
+  boundaryYear: number
+  data?: {
     year: number
     value: number
-    rate: number
-  }
+  }[]
 }
 
 export default async function handler(
@@ -24,10 +41,24 @@ export default async function handler(
     return response.status(400).send('prefCode is required')
   }
 
-  const result = await fetchResasAPI<PopulationComposition[]>(
+  const {
+    result: { boundaryYear, data },
+  } = await fetchResasAPI<RESASAPIResponse>(
     `/api/v1/population/composition/perYear?prefCode=${prefCode}`,
   )
-  return response.status(200).json(result)
+  const totalPopulation = data.find((item) => item.label === '総人口')
+
+  const apiResponse: APIResponse = {
+    prefCode: prefCode,
+    boundaryYear,
+    data: totalPopulation?.data.map(({ year, value }) => ({
+      year,
+      value,
+    })),
+  }
+
+  response.setHeader('Cache-Control', 's-maxage=86400')
+  return response.status(200).json(apiResponse)
 }
 
 // utils/_fetchResasAPI.tsに共通関数として切り出したいが、vercel devで動かないので一旦ここに記述

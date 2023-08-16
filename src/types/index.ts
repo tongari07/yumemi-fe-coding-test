@@ -1,18 +1,13 @@
 export type Prefecture = {
-  prefCode: number
+  prefCode: string
   prefName: string
 }
 
 export type PopulationComposition = {
+  prefCode: Prefecture['prefCode']
   boundaryYear: number
-  data: {
+  data?: {
     year: number
     value: number
-    rate: number
-  }
-}
-
-export type ApiResponse<T> = {
-  message: string
-  result: T
+  }[]
 }
