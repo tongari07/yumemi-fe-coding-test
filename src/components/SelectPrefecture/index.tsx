@@ -20,7 +20,7 @@ export const SelectPrefecture = ({
   const id = useId()
 
   return (
-    <fieldset id={id} className="flex flex-row flex-wrap gap-4">
+    <fieldset id={id} className="grid w-full grid-cols-fluid">
       {prefectures.map((prefecture) => (
         <label className="flex flex-row gap-2" key={prefecture.prefCode}>
           <input
