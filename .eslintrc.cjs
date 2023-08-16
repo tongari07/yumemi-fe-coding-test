@@ -17,6 +17,10 @@ module.exports = {
     'import/no-named-as-default-member': 'off',
     'import/no-unresolved': 'error',
     'no-console': 'error',
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
   },
   settings: {
     'import/resolver': {
