@@ -24,7 +24,7 @@ describe('fetchAll', () => {
     expect(global.fetch).toHaveBeenCalledTimes(urls.length)
     expect(global.fetch).toHaveBeenCalledWith(`${baseUrl}${urls[0]}`)
     expect(global.fetch).toHaveBeenCalledWith(`${baseUrl}${urls[1]}`)
-    expect(response).toEqual({ data: mockData, isLoading: false, error: false })
+    expect(response).toEqual({ data: mockData, error: false })
   })
 
   it('1つでもfetchが失敗したらerror:trueを返却する', async () => {
@@ -41,6 +41,6 @@ describe('fetchAll', () => {
     expect(global.fetch).toHaveBeenCalledTimes(urls.length)
     expect(global.fetch).toHaveBeenCalledWith(`${baseUrl}${urls[0]}`)
     expect(global.fetch).toHaveBeenCalledWith(`${baseUrl}${urls[1]}`)
-    expect(response).toEqual({ isLoading: false, error: true })
+    expect(response).toEqual({ error: true })
   })
 })

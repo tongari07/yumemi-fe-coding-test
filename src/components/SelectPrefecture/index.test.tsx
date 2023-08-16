@@ -47,4 +47,19 @@ describe('SelectPrefecture', () => {
       expect(mockSelectedPrefectureCallback).toBeCalledWith('1', false)
     })
   })
+
+  test('disabledが渡されているとき、チェックボックスはdisabledになる', async () => {
+    const { getByRole } = render(
+      <SelectPrefecture
+        prefectures={mockPrefectures}
+        selectedPrefectureCallback={() => undefined}
+        disabled
+      />,
+    )
+
+    await waitFor(() => {
+      const target = getByRole('checkbox', { name: '北海道' })
+      expect(target).toBeDisabled()
+    })
+  })
 })

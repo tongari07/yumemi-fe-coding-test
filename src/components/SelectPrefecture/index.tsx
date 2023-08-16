@@ -6,11 +6,13 @@ import { useSelectedPrefectures } from './hooks/useSelectedPrefectures'
 type SelectPrefectureProps = {
   prefectures: Prefecture[]
   selectedPrefectureCallback: (prefCode: string, isChecked: boolean) => void
+  disabled?: boolean
 }
 
 export const SelectPrefecture = ({
   prefectures,
   selectedPrefectureCallback,
+  disabled,
 }: SelectPrefectureProps) => {
   const { selectedPrefectures, handleCheckPrefecture } = useSelectedPrefectures(
     selectedPrefectureCallback,
@@ -32,6 +34,7 @@ export const SelectPrefecture = ({
                 e.currentTarget.checked,
               )
             }
+            disabled={disabled}
           />
           {prefecture.prefName}
         </label>

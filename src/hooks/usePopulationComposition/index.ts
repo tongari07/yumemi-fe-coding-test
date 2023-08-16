@@ -34,7 +34,8 @@ export const usePopulationComposition = (prefectures?: Prefecture[]) => {
 
   React.useEffect(() => {
     const fetchAllPopulationComposition = async (prefectures: Prefecture[]) => {
-      const { data, isLoading, error } = await fetchAll<PopulationComposition>(
+      setIsLoading(true)
+      const { data, error } = await fetchAll<PopulationComposition>(
         getSearchParams('prefCode').map(
           (prefCode) => `/api/getPopulationComposition?prefCode=${prefCode}`,
         ),
@@ -42,7 +43,7 @@ export const usePopulationComposition = (prefectures?: Prefecture[]) => {
       const addPrefNameData =
         data?.map((d) => createDataFromFetchedData(d, prefectures)) || []
       setPopulationCompositionDatas(addPrefNameData)
-      setIsLoading(isLoading)
+      setIsLoading(false)
       setError(error)
     }
 
@@ -52,10 +53,12 @@ export const usePopulationComposition = (prefectures?: Prefecture[]) => {
 
   const fetchPopulationComposition = React.useCallback(
     async (prefCode: string, isChecked: boolean) => {
+      setIsLoading(true)
       if (!isChecked) {
         setPopulationCompositionDatas((datas) =>
           datas.filter((data) => data.prefCode !== prefCode),
         )
+        setIsLoading(false)
         return
       }
 
@@ -69,6 +72,7 @@ export const usePopulationComposition = (prefectures?: Prefecture[]) => {
           newDataWithPrefCode,
         ])
       }
+      setIsLoading(false)
       setError(error)
     },
     [prefectures],

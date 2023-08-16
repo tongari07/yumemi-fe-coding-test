@@ -5,8 +5,11 @@ import { usePrefectures } from 'hooks/usePrefectures'
 
 function App() {
   const { prefectures, error, isLoading } = usePrefectures()
-  const { populationCompositionDatas, fetchPopulationComposition } =
-    usePopulationComposition(prefectures)
+  const {
+    populationCompositionDatas,
+    isLoading: populationCompositionIsLoading,
+    fetchPopulationComposition,
+  } = usePopulationComposition(prefectures)
 
   if (isLoading || !prefectures) {
     return <div>Now Loading...</div>
@@ -26,10 +29,15 @@ function App() {
           <SelectPrefecture
             prefectures={prefectures}
             selectedPrefectureCallback={fetchPopulationComposition}
+            disabled={populationCompositionIsLoading}
           />
         </section>
         <section className="w-full flex-1">
-          <PopulationCompositionChart datas={populationCompositionDatas} />
+          {populationCompositionIsLoading && !populationCompositionDatas ? (
+            <div>Now Loading...</div>
+          ) : (
+            <PopulationCompositionChart datas={populationCompositionDatas} />
+          )}
         </section>
       </main>
     </>
