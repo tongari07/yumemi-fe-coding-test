@@ -3,12 +3,15 @@ import App from './App'
 import { rest } from 'msw'
 import { setupMockServer } from 'tests/mockServer'
 import { mockPrefectures } from 'tests/mocks'
+import { mockResizeObserver } from 'tests/mockResizeObserver'
 
 setupMockServer(
   rest.get('http://localhost:3000/api/getPrefectures', (_, res, ctx) =>
     res(ctx.status(200), ctx.json(mockPrefectures)),
   ),
 )
+
+mockResizeObserver()
 
 describe('SelectPrefecture', () => {
   test('ローディング中の画面が表示される', () => {
@@ -20,7 +23,7 @@ describe('SelectPrefecture', () => {
     render(<App />)
 
     await waitFor(() => {
-      const linkElement = screen.getByText(/Population trends by prefecture/i)
+      const linkElement = screen.getByText('Population trends by prefecture')
       expect(linkElement).toBeInTheDocument()
     })
   })
