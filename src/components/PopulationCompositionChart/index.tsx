@@ -46,7 +46,7 @@ export const PopulationCompositionChart = ({
         <YAxis
           type="number"
           label={{
-            value: '人口数（万人）',
+            value: '総人口（万人）',
             position: 'insideTop',
             offset: -30,
           }}

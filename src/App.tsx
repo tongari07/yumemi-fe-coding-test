@@ -37,7 +37,7 @@ function App() {
         </section>
         <section className="flex w-full flex-1 flex-col items-center gap-2 md:items-start">
           <h2 className="w-fit rounded-sm border border-gray-200 px-2 text-xl md:text-2xl">
-            人口構成
+            総人口
           </h2>
           {populationCompositionIsLoading && !populationCompositionDatas ? (
             <div>Now Loading...</div>
