@@ -45,11 +45,16 @@ export const PopulationCompositionChart = ({
         />
         <YAxis
           type="number"
-          label={{ value: '人口数', position: 'insideTop', offset: -30 }}
+          label={{
+            value: '人口数（万人）',
+            position: 'insideTop',
+            offset: -30,
+          }}
           dataKey="value"
+          tickFormatter={(value: number) => (value / 10000).toLocaleString()}
         />
         <ReferenceLine x={2020} stroke="red" label="実績値と推計値の区切り年" />
-        <Tooltip />
+        <Tooltip formatter={(value: number) => `${value.toLocaleString()}人`} />
         <Legend />
         {datas?.map(({ data, prefName, prefCode, strokeColor }) => (
           <Line
