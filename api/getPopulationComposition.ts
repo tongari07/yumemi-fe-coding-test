@@ -19,7 +19,6 @@ type RESASAPIResponse = {
 
 type APIResponse = {
   prefCode: string
-  boundaryYear: number
   data?: {
     year: number
     value: number
@@ -47,14 +46,16 @@ export default async function handler(
     `/api/v1/population/composition/perYear?prefCode=${prefCode}`,
   )
   const totalPopulation = data.find((item) => item.label === '総人口')
+  const realPopulationData = totalPopulation?.data
+    .filter((i) => i.year <= boundaryYear)
+    .map(({ year, value }) => ({
+      year,
+      value,
+    }))
 
   const apiResponse: APIResponse = {
     prefCode: prefCode,
-    boundaryYear,
-    data: totalPopulation?.data.map(({ year, value }) => ({
-      year,
-      value,
-    })),
+    data: realPopulationData,
   }
 
   response.setHeader('Cache-Control', 's-maxage=86400')
