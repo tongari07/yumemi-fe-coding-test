@@ -1,6 +1,22 @@
 import { SelectPrefecture } from 'components/SelectPrefecture'
+import { useFetch } from 'lib/useFetch'
+import { Prefecture } from 'types'
 
 function App() {
+  const {
+    data: prefectures,
+    error,
+    isLoading,
+  } = useFetch<Prefecture[]>('/api/getPrefectures')
+
+  if (isLoading || !prefectures) {
+    return <div>Now Loading...</div>
+  }
+
+  if (error) {
+    return <div>Error</div>
+  }
+
   return (
     <>
       <header className="grid place-content-center">
@@ -8,7 +24,7 @@ function App() {
       </header>
       <main className="flex min-h-screen flex-col items-center gap-4 p-24">
         <section>
-          <SelectPrefecture />
+          <SelectPrefecture prefectures={prefectures} />
         </section>
       </main>
     </>
