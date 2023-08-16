@@ -11,3 +11,8 @@ export type PopulationComposition = {
     value: number
   }[]
 }
+
+export type PopulationCompositionData = Prefecture & {
+  data: PopulationComposition['data']
+  strokeColor: `#${string}`
+}

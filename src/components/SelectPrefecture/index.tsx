@@ -1,15 +1,20 @@
 import { useId } from 'react'
-import { useSelectedPrefectures } from './hooks/useSelectedPrefectures'
 
 import { Prefecture } from 'types'
+import { useSelectedPrefectures } from './hooks/useSelectedPrefectures'
 
-type Props = {
+type SelectPrefectureProps = {
   prefectures: Prefecture[]
+  selectedPrefectureCallback: (prefCode: string, isChecked: boolean) => void
 }
 
-export const SelectPrefecture = ({ prefectures }: Props) => {
-  const { selectedPrefectures, handleCheckPrefecture } =
-    useSelectedPrefectures()
+export const SelectPrefecture = ({
+  prefectures,
+  selectedPrefectureCallback,
+}: SelectPrefectureProps) => {
+  const { selectedPrefectures, handleCheckPrefecture } = useSelectedPrefectures(
+    selectedPrefectureCallback,
+  )
   const id = useId()
 
   return (

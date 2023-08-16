@@ -8,7 +8,10 @@ const user = userEvent.setup()
 describe('SelectPrefecture', () => {
   test('北海道から群馬県までの都道府県が表示される', async () => {
     const { getByRole } = render(
-      <SelectPrefecture prefectures={mockPrefectures} />,
+      <SelectPrefecture
+        prefectures={mockPrefectures}
+        selectedPrefectureCallback={() => undefined}
+      />,
     )
     await waitFor(() => {
       expect(getByRole('checkbox', { name: '北海道' })).toBeInTheDocument()
@@ -20,9 +23,13 @@ describe('SelectPrefecture', () => {
     })
   })
 
-  test('北海道を選択するとチェックが入りprefCodeがsearchParamに反映される', async () => {
+  test('チェックが入りprefCodeがsearchParamに反映される。selectedPrefectureCallbackが実行される。', async () => {
+    const mockSelectedPrefectureCallback = vi.fn()
     const { getByRole } = render(
-      <SelectPrefecture prefectures={mockPrefectures} />,
+      <SelectPrefecture
+        prefectures={mockPrefectures}
+        selectedPrefectureCallback={mockSelectedPrefectureCallback}
+      />,
     )
 
     await waitFor(async () => {
@@ -32,6 +39,12 @@ describe('SelectPrefecture', () => {
       await user.click(target)
       expect(target).toBeChecked()
       expect(window.location.search).toBe('?prefCode=1')
+      expect(mockSelectedPrefectureCallback).toBeCalledWith('1', true)
+
+      await user.click(target)
+      expect(target).not.toBeChecked()
+      expect(window.location.search).toBe('')
+      expect(mockSelectedPrefectureCallback).toBeCalledWith('1', false)
     })
   })
 })
