@@ -1,49 +1,89 @@
-# Vite + React プロジェクト
+# 都道府県別の総人口推移グラフ
 
-このプロジェクトは、Vite と React を使用して構築され、pnpm をパッケージマネージャーとして使用しています。
+[デプロイ済みURL](https://yumemi-fe-coding-test-tongari.vercel.app/)
 
-## 開始方法
+## 概要
 
-### インストール
+株式会社ゆめみ様の[フロントエンドコーディング試験](https://yumemi.notion.site/0e9ef27b55704d7882aab55cc86c999d)の課題
 
-pnpm がインストールされていない場合、以下のコマンドを使用してインストールしてください:
+**都道府県別の総人口推移グラフを表示するSPA(Single Page Application)**
 
-```sh
-npm install -g pnpm
-```
+## 開発環境
 
-プロジェクトの依存関係をインストールするには、以下のコマンドを実行してください:
+Vercelにデプロイしているため、Vercelのプロジェクトを作成する必要がある
 
-```sh
-pnpm install
-```
+### 環境変数の設定
 
-### 開発サーバーの起動
+| 変数名             | 説明                                                | 値                                                                                  |
+| ------------------ | --------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| VITE_API_BASE_URL  | Vercel Serverless FunctionにデプロイされたURLを指定 | Developmentにはhttp://localhost:3000を指定。ProductionはProduction環境のURLを指定。 |
+| RESAS_API_ENDPOINT | RESAS APIのエンドポイントを指定。                   | https://opendata.resas-portal.go.jp                                                 |
+| RESAS_API_KEY      | RESAS APIのAPIキー                                  | [RESAS](https://opendata.resas-portal.go.jp/)公式ページより取得                     |
 
-開発サーバーをローカルで起動するには、以下のコマンドを使用してください:
+### Vercelから環境変数をインポート
 
-```sh
-pnpm dev
-```
+`pnpm prepare-env`
 
-これで、ブラウザで \`http://localhost:3000\` にアクセスすると、アプリケーションを表示できます。
+### ローカル環境立ち上げ
+
+`pnpm start`
+
+内部で`vercel dev`を実行している
+
+エンドポイントは[http://localhost:3000/]でアクセス可能
+api配下のエンドポイントは`http://localhost:3000/api/hoge`でアクセス可能
 
 ### ビルド
 
-プロダクションビルドを生成するには、以下のコマンドを実行してください:
+`pnpm build`
 
-```sh
-pnpm build
+### ESLint
+
+`pnpm lint`
+
+### テスト
+
+watchモードでテストを実行
+`pnpm test`
+
+CI内では下記を実行
+`pnpm test:run`
+
+## API仕様
+
+### 都道府県一覧取得
+
+#### Request
+
+`GET /api/getPrefectures`
+
+#### Response
+
+```ts
+type APIResponse = {
+  prefCode: string
+  prefName: string
+}[]
 ```
 
-## テスト
+### 都道府県別の総人口推移取得
 
-テストを実行するには、以下のコマンドを使用してください:
+#### Request
 
-```sh
-pnpm test
+`GET /api/getPopulationComposition`
+
+| パラメータ名 | 必須 | 型     | 説明           |
+| ------------ | ---- | ------ | -------------- |
+| prefCode     | ○    | 文字列 | 都道府県コード |
+
+#### Response
+
+```ts
+type APIResponse = {
+  prefCode: string
+  data?: {
+    year: number
+    value: number
+  }[]
+}
 ```
-
-## ライセンス
-
-このプロジェクトは MIT ライセンスのもとで公開されています。詳細は [LICENSE](LICENSE) ファイルを参照してください。
