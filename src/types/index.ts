@@ -5,7 +5,6 @@ export type Prefecture = {
 
 export type PopulationComposition = {
   prefCode: Prefecture['prefCode']
-  boundaryYear: number
   data?: {
     year: number
     value: number

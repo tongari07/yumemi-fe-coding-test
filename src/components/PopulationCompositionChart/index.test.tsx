@@ -7,7 +7,6 @@ import {
   Legend,
   Line,
   LineChart,
-  ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -72,13 +71,6 @@ describe('PoplationCompositionChart', () => {
       expect.anything(),
     )
     expect(LineChart).toHaveBeenCalledTimes(1)
-    expect(ReferenceLine).toHaveBeenCalledWith(
-      expect.objectContaining({
-        x: 2020,
-        label: '実績値と推計値の区切り年',
-      }),
-      expect.anything(),
-    )
     expect(ResponsiveContainer).toHaveBeenCalledTimes(1)
     expect(Tooltip).toHaveBeenCalledTimes(1)
     expect(XAxis).toHaveBeenCalledWith(

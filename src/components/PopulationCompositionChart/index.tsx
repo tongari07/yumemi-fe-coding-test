@@ -3,7 +3,6 @@ import {
   Legend,
   Line,
   LineChart,
-  ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -27,8 +26,8 @@ export const PopulationCompositionChart = ({
       <LineChart
         margin={{
           top: 40,
-          right: 32,
-          left: 32,
+          right: 10,
+          left: 10,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
@@ -53,7 +52,6 @@ export const PopulationCompositionChart = ({
           dataKey="value"
           tickFormatter={(value: number) => (value / 10000).toLocaleString()}
         />
-        <ReferenceLine x={2020} stroke="red" label="実績値と推計値の区切り年" />
         <Tooltip formatter={(value: number) => `${value.toLocaleString()}人`} />
         <Legend />
         {datas?.map(({ data, prefName, prefCode, strokeColor }) => (
