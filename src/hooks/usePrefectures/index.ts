@@ -8,6 +8,10 @@ export const usePrefectures = () => {
     isLoading,
   } = useFetch<Prefecture[]>('/api/getPrefectures')
 
+  if (error) {
+    throw new Error('Failed to fetch prefectures')
+  }
+
   return {
     prefectures,
     error,
