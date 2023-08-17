@@ -26,3 +26,6 @@ dist-ssr
 .eslintcache
 .vercel
 .env*.local
+/test-results/
+/playwright-report/
+/playwright/.cache/
