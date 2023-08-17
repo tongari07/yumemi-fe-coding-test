@@ -7,14 +7,24 @@ function App() {
   const { prefectures, isLoading } = usePrefectures()
   const {
     populationCompositionDatas,
+    error,
     isLoading: populationCompositionIsLoading,
     fetchPopulationComposition,
   } = usePopulationComposition(prefectures)
-
   if (isLoading || !prefectures) {
     return (
       <div className="grid h-screen place-content-center">Now Loading...</div>
     )
+  }
+
+  const renderPopulationCompositionChart = () => {
+    if (populationCompositionIsLoading) {
+      return <div>Now Loading...</div>
+    }
+    if (error) {
+      throw new Error('failed to fetch population composition datas')
+    }
+    return <PopulationCompositionChart datas={populationCompositionDatas} />
   }
 
   return (
@@ -39,11 +49,7 @@ function App() {
           <h2 className="w-fit rounded-sm border border-gray-200 px-2 text-xl md:text-2xl">
             総人口
           </h2>
-          {populationCompositionIsLoading && !populationCompositionDatas ? (
-            <div>Now Loading...</div>
-          ) : (
-            <PopulationCompositionChart datas={populationCompositionDatas} />
-          )}
+          {renderPopulationCompositionChart()}
         </section>
       </main>
     </>

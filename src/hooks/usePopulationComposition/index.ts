@@ -53,12 +53,10 @@ export const usePopulationComposition = (prefectures?: Prefecture[]) => {
 
   const fetchPopulationComposition = React.useCallback(
     async (prefCode: string, isChecked: boolean) => {
-      setIsLoading(true)
       if (!isChecked) {
         setPopulationCompositionDatas((datas) =>
           datas.filter((data) => data.prefCode !== prefCode),
         )
-        setIsLoading(false)
         return
       }
 
@@ -72,7 +70,6 @@ export const usePopulationComposition = (prefectures?: Prefecture[]) => {
           newDataWithPrefCode,
         ])
       }
-      setIsLoading(false)
       setError(error)
     },
     [prefectures],
