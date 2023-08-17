@@ -11,6 +11,7 @@
     "lint": "eslint . --cache --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "vitest",
     "test:run": "VITE_API_BASE_URL='http://localhost:3000' vitest run",
+    "test:e2e": "playwright test",
     "preview": "vite preview",
     "prepare": "husky install"
   },
@@ -23,6 +24,7 @@
     "swr": "^2.2.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.37.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
