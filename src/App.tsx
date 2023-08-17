@@ -4,7 +4,7 @@ import { usePopulationComposition } from 'hooks/usePopulationComposition'
 import { usePrefectures } from 'hooks/usePrefectures'
 
 function App() {
-  const { prefectures, error, isLoading } = usePrefectures()
+  const { prefectures, isLoading } = usePrefectures()
   const {
     populationCompositionDatas,
     isLoading: populationCompositionIsLoading,
@@ -12,11 +12,9 @@ function App() {
   } = usePopulationComposition(prefectures)
 
   if (isLoading || !prefectures) {
-    return <div>Now Loading...</div>
-  }
-
-  if (error) {
-    return <div>Error</div>
+    return (
+      <div className="grid h-screen place-content-center">Now Loading...</div>
+    )
   }
 
   return (
